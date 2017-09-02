@@ -1,0 +1,44 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- 数据库连接池 -->
+	<!-- 加载配置文件 -->
+	<context:property-placeholder  ignore-unresolvable="true"  location="classpath*:init.properties" />
+
+	<!-- 数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="url" value="${jdbc_url}" />
+		<property name="username" value="${jdbc_username}" />
+		<property name="password" value="${jdbc_password}" />
+		<property name="driverClassName" value="${jdbc_driver}" />
+		<property name="maxActive" value="10" />
+		<property name="minIdle" value="5" />
+	</bean>
+	<!-- 让spring管理sqlsessionfactory 使用mybatis和spring整合包中的 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 数据库连接池 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 加载mybatis的全局配置文件 -->
+		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml" />
+		<!--加载mapper配置文件，如果不配置，默认和mapper文件在一起-->
+		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.champion.jianyu.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<bean id="jianYuSpider" class="com.champion.jianyu.JianYuSpider">
+		<!--<property name="cluster" value="${cluster}" />-->
+		<!--<property name="task" value="${task}" />-->
+		<!--<property name="threadnum" value="${threadnum}" />-->
+		<!--<property name="polltime" value="${polltime}" />-->
+		<!--<property name="redis_addr" value="${redis_addr}" />-->
+		<!--<property name="redis_port" value="${redis_port}" />-->
+	</bean>
+	
+</beans>

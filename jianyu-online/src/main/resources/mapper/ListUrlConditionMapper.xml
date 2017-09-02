@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.champion.jianyu.mapper.ListUrlConditionMapper" >
+  <resultMap id="BaseResultMap" type="com.champion.jianyu.pojo.ListUrlCondition" >
+    <constructor >
+      <arg column="keyword" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="area" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="subtype" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="publishtime" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="page_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="total" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ts" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    keyword, area, subtype, publishtime, page_num, total, ts, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.champion.jianyu.pojo.ListUrlConditionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_list_url_condition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.champion.jianyu.pojo.ListUrlConditionExample" >
+    delete from t_list_url_condition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.champion.jianyu.pojo.ListUrlCondition" >
+    insert into t_list_url_condition (keyword, area, subtype, 
+      publishtime, page_num, total, 
+      ts, status)
+    values (#{keyword,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{subtype,jdbcType=VARCHAR}, 
+      #{publishtime,jdbcType=VARCHAR}, #{pageNum,jdbcType=INTEGER}, #{total,jdbcType=INTEGER}, 
+      #{ts,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.champion.jianyu.pojo.ListUrlCondition" >
+    insert into t_list_url_condition
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="keyword != null" >
+        keyword,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="subtype != null" >
+        subtype,
+      </if>
+      <if test="publishtime != null" >
+        publishtime,
+      </if>
+      <if test="pageNum != null" >
+        page_num,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="ts != null" >
+        ts,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="keyword != null" >
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="subtype != null" >
+        #{subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null" >
+        #{publishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pageNum != null" >
+        #{pageNum,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        #{ts,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.champion.jianyu.pojo.ListUrlConditionExample" resultType="java.lang.Integer" >
+    select count(*) from t_list_url_condition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_list_url_condition
+    <set >
+      <if test="record.keyword != null" >
+        keyword = #{record.keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subtype != null" >
+        subtype = #{record.subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishtime != null" >
+        publishtime = #{record.publishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pageNum != null" >
+        page_num = #{record.pageNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=INTEGER},
+      </if>
+      <if test="record.ts != null" >
+        ts = #{record.ts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_list_url_condition
+    set keyword = #{record.keyword,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      subtype = #{record.subtype,jdbcType=VARCHAR},
+      publishtime = #{record.publishtime,jdbcType=VARCHAR},
+      page_num = #{record.pageNum,jdbcType=INTEGER},
+      total = #{record.total,jdbcType=INTEGER},
+      ts = #{record.ts,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

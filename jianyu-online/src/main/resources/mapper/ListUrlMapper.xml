@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.champion.jianyu.mapper.ListUrlMapper" >
+  <resultMap id="BaseResultMap" type="com.champion.jianyu.pojo.ListUrl" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="area" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="areaadd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="detail" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="href" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="publishtime" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="stypeadd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="subtype" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="toptype" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ts" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, area, areaadd, detail, href, publishtime, stypeadd, subtype, title, toptype, 
+    type, status, ts
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.champion.jianyu.pojo.ListUrlExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_list_url
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_list_url
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_list_url
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.champion.jianyu.pojo.ListUrlExample" >
+    delete from t_list_url
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.champion.jianyu.pojo.ListUrl" >
+    insert into t_list_url (id, area, areaadd, 
+      detail, href, publishtime, 
+      stypeadd, subtype, title, 
+      toptype, type, status, 
+      ts)
+    values (#{id,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{areaadd,jdbcType=VARCHAR}, 
+      #{detail,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, #{publishtime,jdbcType=VARCHAR}, 
+      #{stypeadd,jdbcType=VARCHAR}, #{subtype,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{toptype,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{ts,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.champion.jianyu.pojo.ListUrl" >
+    insert into t_list_url
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="areaadd != null" >
+        areaadd,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="href != null" >
+        href,
+      </if>
+      <if test="publishtime != null" >
+        publishtime,
+      </if>
+      <if test="stypeadd != null" >
+        stypeadd,
+      </if>
+      <if test="subtype != null" >
+        subtype,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="toptype != null" >
+        toptype,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ts != null" >
+        ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaadd != null" >
+        #{areaadd,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null" >
+        #{publishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="stypeadd != null" >
+        #{stypeadd,jdbcType=VARCHAR},
+      </if>
+      <if test="subtype != null" >
+        #{subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="toptype != null" >
+        #{toptype,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        #{ts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.champion.jianyu.pojo.ListUrlExample" resultType="java.lang.Integer" >
+    select count(*) from t_list_url
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_list_url
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaadd != null" >
+        areaadd = #{record.areaadd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detail != null" >
+        detail = #{record.detail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.href != null" >
+        href = #{record.href,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishtime != null" >
+        publishtime = #{record.publishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stypeadd != null" >
+        stypeadd = #{record.stypeadd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subtype != null" >
+        subtype = #{record.subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toptype != null" >
+        toptype = #{record.toptype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.ts != null" >
+        ts = #{record.ts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_list_url
+    set id = #{record.id,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      areaadd = #{record.areaadd,jdbcType=VARCHAR},
+      detail = #{record.detail,jdbcType=VARCHAR},
+      href = #{record.href,jdbcType=VARCHAR},
+      publishtime = #{record.publishtime,jdbcType=VARCHAR},
+      stypeadd = #{record.stypeadd,jdbcType=VARCHAR},
+      subtype = #{record.subtype,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      toptype = #{record.toptype,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      ts = #{record.ts,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.champion.jianyu.pojo.ListUrl" >
+    update t_list_url
+    <set >
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaadd != null" >
+        areaadd = #{areaadd,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null" >
+        publishtime = #{publishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="stypeadd != null" >
+        stypeadd = #{stypeadd,jdbcType=VARCHAR},
+      </if>
+      <if test="subtype != null" >
+        subtype = #{subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="toptype != null" >
+        toptype = #{toptype,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        ts = #{ts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.champion.jianyu.pojo.ListUrl" >
+    update t_list_url
+    set area = #{area,jdbcType=VARCHAR},
+      areaadd = #{areaadd,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      href = #{href,jdbcType=VARCHAR},
+      publishtime = #{publishtime,jdbcType=VARCHAR},
+      stypeadd = #{stypeadd,jdbcType=VARCHAR},
+      subtype = #{subtype,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      toptype = #{toptype,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      ts = #{ts,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

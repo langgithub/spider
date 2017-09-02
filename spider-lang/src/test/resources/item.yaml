@@ -1,0 +1,41 @@
+webStructure:
+  -
+    name: hexunSpider
+    path: http://datainterface.eastmoney.com/
+    style: json
+    method: get
+    param: nextnum&
+    nextPage: "http://datainterface.eastmoney.com//EM_DataCenter/js.aspx?type=SR&sty=HYSR&sc=437&js=var%20AzcYhkGE={%22data%22:[(x)],%22pages%22:%22(pc)%22,%22update%22:%22(ud)%22,%22count%22:%22(count)%22}&ps=25&p=1&mkt=0&stat=0&rt=50110346%22)"
+    pageListReg: reg@var AzcYhkGE=(.*)->item@data
+    pageList:
+      title: item=9
+      id: item=2
+      date: item=1
+      url: "http://data.eastmoney.com/report/(date)/hy,(id).html"
+  -
+    name: tenxunSpider
+    path: "http://www.cnblogs.com/resentment"
+    style: html
+    method: get
+    param: nextnum&
+    nextPage: http://open.tool.hexun.com/MongodbNewsService/newsListPageByJson.jsp?id=102707162&s=30&cp=nextnum&priority=0&callback=hx_json21503044574437
+    pageListReg: #cb_post_title_url
+    pageList:
+      title: "('#CatList_LinkList_0_Link_2,'text')"
+      url: "('#CatList_LinkList_0_Link_2,'href')"
+      date: "('#CatList_LinkList_0_Link_2,'text')"
+
+
+#age: 23
+#children:
+#  -
+#    age: 8
+#    name: mary1
+#    sex: man
+#  -
+#    age: 9
+#    name: simon2
+#    sex: fatel
+#name: simon.zhang
+#sex: man
+
