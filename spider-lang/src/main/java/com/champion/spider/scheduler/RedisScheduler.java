@@ -20,20 +20,45 @@ public class RedisScheduler  implements Scheduler{
         this.key = key;
     }
 
+    public Jedis getRedis() {
+        Jedis jedis = null;
+
+        while (true) {
+            try {
+                jedis = RedisUtils.getJedis();
+            } catch (Exception e) {
+                LOG.warn(e.getMessage());
+            }
+
+            if (jedis != null) {
+                break;
+            }
+
+            try {
+                Thread.sleep(5000);
+                LOG.warn("redis获取失败，重新获取中...");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jedis;
+    }
+
     @Override
     public void put(WebRequest request) {
         if (request==null) {
             LOG.info("WebRequest 为空，请检查");
             return;
         }
-        Jedis jedis = RedisUtils.getJedis();
+        Jedis jedis = getRedis();
         jedis.sadd(key, JSON.toJSONString(request));
         RedisUtils.returnResource(jedis);
     }
 
     @Override
     public WebRequest poll() {
-        Jedis jedis = RedisUtils.getJedis();
+        Jedis jedis = getRedis();
         String member = jedis.spop(key);
         RedisUtils.returnResource(jedis);
         if(member==null){

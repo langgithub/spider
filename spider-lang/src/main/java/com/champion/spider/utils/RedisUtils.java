@@ -41,6 +41,7 @@ public class RedisUtils {
 		jedisPool = new JedisPool(config, ADDR, PORT, TIMEOUT, AUTH);
 	}
 
+
 	public static Jedis getJedis() {
 		if(jedisPool == null){
 			synchronized (RedisUtils.class){

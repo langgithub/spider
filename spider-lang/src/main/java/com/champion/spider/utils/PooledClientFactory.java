@@ -5,9 +5,6 @@ import com.champion.spider.download.WebClient;
 import org.apache.commons.pool.PoolableObjectFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
 
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-
 public class PooledClientFactory {
 	private final static PooledClientFactory instance = new PooledClientFactory();
 	private final GenericObjectPool clientPool = new GenericObjectPool();

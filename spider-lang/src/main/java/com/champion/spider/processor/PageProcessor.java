@@ -9,9 +9,9 @@ import java.util.Map;
 public interface PageProcessor {
 
 
-    public Map<String,Object> process(Downloader client, WebRequest request);
+//    public Map<String,Object> process(Downloader client, WebRequest request);
 
-    public List<WebRequest> seedCreate();
+//    public List<WebRequest> seedCreate();
 
 
 }

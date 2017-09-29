@@ -79,6 +79,14 @@ public class WebClient implements Downloader{
 
     @Override
     public Page get(WebRequest request) throws IOException {
+        Map<String, String> cookies = request.getCookies();
+        if(cookies!=null){
+            for (Map.Entry<String,String> cook:cookies.entrySet()){
+                String cookies1 = headler.get("cookies");
+                cookies1=cookies1+";"+cook.getKey()+"="+cook.getValue();
+                headler.put("cookies",cookies1);
+            }
+        }
         if(proxy==null){
             httpURLConnection= (HttpURLConnection) new URL(request.getUrl()).openConnection();
         }else {

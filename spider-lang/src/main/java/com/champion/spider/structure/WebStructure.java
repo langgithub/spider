@@ -11,6 +11,7 @@ public class WebStructure {
     private String path;
     private String style;
     private String method;
+    private String job;
 
     private List<ListStructure> dataList;
 
@@ -44,6 +45,14 @@ public class WebStructure {
 
     public void setStyle(String style) {
         this.style = style;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
     }
 
     public List<ListStructure> getDataList() {

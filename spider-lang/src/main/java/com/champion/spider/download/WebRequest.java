@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class WebRequest implements Serializable,Comparable<WebRequest> {
@@ -25,6 +26,8 @@ public class WebRequest implements Serializable,Comparable<WebRequest> {
 
     private boolean next;
 
+    private  Map<String, String> cookies;
+
     public void setCharSet(String charSet) {
         this.charSet = charSet;
     }
@@ -36,6 +39,17 @@ public class WebRequest implements Serializable,Comparable<WebRequest> {
         this.strExtras="";
         this.extras=new HashMap<>();
         this.next=false;
+        this.cookies=new HashMap<>();
+    }
+
+    public void setCookie(String key,String value) {
+        if(key!=null&&value!=null){
+            cookies.put(key,value);
+        }
+    }
+
+    public Map<String, String> getCookies() {
+        return cookies;
     }
 
     public Object getExtra(String key) {

@@ -1,12 +1,5 @@
 package com.champion.spider.selector;
 
-/**
- * Convenient methods for selectors.<br>
- *
- * @author xulixiang@champion-credit.com
- * @version 1.0.0
- * @date 2016.5.28
- */
 public abstract class Selectors {
 
     public static RegexSelector regex(String expr) {
@@ -29,9 +22,7 @@ public abstract class Selectors {
         return new CssSelector(expr, attrName);
     }
 
-    public static XpathSelector xpath(String expr) {
-        return new XpathSelector(expr);
-    }
+    public static XpathSelector xpath(String expr) { return new XpathSelector(expr);}
 
     public static AndSelector and(Selector... selectors) {
         return new AndSelector(selectors);

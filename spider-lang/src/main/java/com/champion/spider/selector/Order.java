@@ -12,8 +12,8 @@ public class Order {
         Map<String,String> map=new HashMap<>();
         String[] reg = or.split("->");
         for (int i=0;i<reg.length;i++){
-            String[] a = reg[i].split("@");
-            map.put(a[0],a[1]);
+            String[] a = reg[i].split("=");
+            map.put(a[0].trim(),a[1].trim());
         }
         return  map;
     }

@@ -31,9 +31,26 @@ public class Page {
     public Selectable getSelectable(Selectable selectable, Map<String, String> map) {
         for(Map.Entry<String, String> s:map.entrySet()){
             if(s.getKey().equals("css")){
-                selectable = selectable.$(s.getValue());
+                Pattern pattern=Pattern.compile("\\((.*)\\)");
+                Matcher matcher = pattern.matcher(s.getValue());
+                String select=null,attribute=null;
+                if (matcher.find()){
+                    String group = matcher.group(1);
+                    if (group.contains(",")){
+                        String[] split = group.split(",");
+                        select=split[0];
+                        attribute=split[1];
+                        selectable = selectable.$(select,attribute);
+                    }else {
+                        selectable = selectable.$(group);
+                    }
+                }else {
+                    System.out.print("格式错误");
+                }
             }else if(s.getKey().equals("reg")){
                 selectable=selectable.regex(s.getValue());
+            }else if(s.getKey().equals("xpath")){
+                selectable=selectable.xpath(s.getValue());
             }
         }
         return selectable;
@@ -42,9 +59,9 @@ public class Page {
     public JSONArray getJson(String pageListReg) {
         String[] reg = pageListReg.split("->");
         Pattern pattern=null;
-        String need=content.toString();
+        String need=decode(content.toString());
         for (int i=0;i<reg.length;i++){
-            String[] a = reg[i].split("@");
+            String[] a = reg[i].split("=");
             if("reg".equals(a[0])){
                 pattern=Pattern.compile(a[1]);
                 Matcher matcher = pattern.matcher(need);
@@ -58,6 +75,19 @@ public class Page {
             }
         }
         return  JSONArray.parseArray(need);
+    }
+
+    static final Pattern reUnicode = Pattern.compile("\\\\u([0-9a-zA-Z]{4})");
+
+    public static String decode(String s) {
+        Matcher m = reUnicode.matcher(s);
+        StringBuffer sb = new StringBuffer(s.length());
+        while (m.find()) {
+            m.appendReplacement(sb,
+                    Character.toString((char) Integer.parseInt(m.group(1), 16)));
+        }
+        m.appendTail(sb);
+        return sb.toString();
     }
 }
 
